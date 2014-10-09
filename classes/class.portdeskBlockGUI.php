@@ -27,7 +27,7 @@ class portdeskBlockGUI extends ilBlockGUI {
 		 */
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilPortfolioDesktopPlugin::getInstance();
-		$this->pl->updateLanguageFiles();
+//		$this->pl->updateLanguageFiles();
 		$tpl->addCss($this->pl->getDirectory() . '/templates/port_desk.css');
 	}
 
