@@ -1,0 +1,42 @@
+div.port_desk_container {
+	margin-top: -6px;
+
+}
+
+div.port_desk_port_list_item {
+	height:  75px;
+	/*background-color: palegreen;*/
+	clear:   both;
+	margin:  0 -5px 0 -5px;
+	padding: 0;
+	/*border-bottom: solid 1px grey;*/
+}
+
+div.port_desk_port_list_item, div.port_desk_port_list_img, div.port_desk_port_list_title, div.port_desk_port_actions {
+	position: relative;
+}
+
+div.port_desk_port_list_img, div.port_desk_port_list_title {
+	float: left;
+}
+
+div.port_desk_port_list_shared {
+	float:        right;
+	margin-right: 15px;
+	margin-top:   20px;
+}
+
+div.port_desk_port_list_title {
+	margin-left: 45px;
+	margin-top:  25px;
+	float:       none;
+	left:        57px;
+	position:    absolute;
+
+}
+
+div.port_desk_port_actions {
+	float:        right;
+	margin-right: 12px;
+	margin-top:   25px;
+}
