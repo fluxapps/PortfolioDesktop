@@ -41,7 +41,7 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 
 	public function __construct() {
 		$this->plugin = ilPortfolioDesktopPlugin::getInstance();
-//		$this->plugin->updateLanguageFiles();
+		//		$this->plugin->updateLanguageFiles();
 	}
 
 
@@ -64,10 +64,15 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 			$a_part == 'center_column' AND ! self::isLoaded('pd') AND ($_GET['cmd'] == 'jumpToMemberships' OR $_GET['cmd'] == 'jumpToSelectedItems')
 		) {
 			self::setLoaded('pd');
-			$portdeskObjectsGUI = new portdeskBlockGUI();
-			$portdeskObjectsGUI->setTitle($this->plugin->txt('block_title'));
 
-			return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $portdeskObjectsGUI->getHTML() );
+			if (ilObjPortfolio::getPortfoliosOfUser($ilUser->getId())) {
+				$portdeskObjectsGUI = new portdeskBlockGUI();
+				$portdeskObjectsGUI->setTitle($this->plugin->txt('block_title'));
+
+				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $portdeskObjectsGUI->getHTML() );
+			} else {
+				return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
+			}
 		}
 
 		return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
