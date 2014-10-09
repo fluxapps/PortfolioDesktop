@@ -40,3 +40,11 @@ div.port_desk_port_actions {
 	margin-right: 12px;
 	margin-top:   25px;
 }
+
+div.port_desk_port_list_shared span {
+	color:        grey;
+	font-size:    10px;
+	margin-right: 11px;
+	margin-top:   7px;
+
+}

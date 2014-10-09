@@ -53,7 +53,7 @@ class portdeskBlockGUI extends ilBlockGUI {
 		$ilPortfolioAccessHandler = new ilPortfolioAccessHandler();
 		$tpl = $this->pl->getTemplate('tpl.list_item.html');
 		$prtf_path = array( 'ilPortfolioRepositoryGUI', 'ilobjportfoliogui' );
-		foreach (ilObjPortfolio::getPortfoliosOfUser(6) as $portfolio) {
+		foreach (ilObjPortfolio::getPortfoliosOfUser($ilUser->getId()) as $portfolio) {
 			$this->ctrl->setParameterByClass('ilobjportfoliogui', 'prt_id', $portfolio['id']);
 			$tpl->touchBlock('item');
 			$tpl->setVariable('TITLE', $portfolio['title']);
@@ -65,6 +65,7 @@ class portdeskBlockGUI extends ilBlockGUI {
 				OR $ilPortfolioAccessHandler->hasRegisteredPermission($portfolio['id'])
 			) {
 				$tpl->setVariable('IMG_SRC_SHARED', './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/PortfolioDesktop/templates/img/globe_grey_s.png');
+				$tpl->setVariable('TXT_SHARED', $this->pl->txt('alt_shared'));
 			}
 
 			$current_selection_list = new ilAdvancedSelectionListGUI();
