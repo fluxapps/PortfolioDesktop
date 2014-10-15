@@ -4,7 +4,7 @@
 
 require_once('./Services/UIComponent/classes/class.ilUIHookPluginGUI.php');
 require_once('class.portdeskBlockGUI.php');
-
+require_once('./Modules/Portfolio/classes/class.ilObjPortfolio.php');
 /**
  * Class ilPortfolioDesktopUIHookGUI
  *
