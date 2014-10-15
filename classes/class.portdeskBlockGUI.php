@@ -1,6 +1,9 @@
 <?php
 require_once('./Services/Block/classes/class.ilBlockGUI.php');
 require_once('class.ilObjPortfolioListGUI.php');
+require_once('./Modules/Portfolio/classes/class.ilPortfolioAccessHandler.php');
+require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php');
+require_once('./Services/User/classes/class.ilObjUser.php');
 
 /**
  * Class portdeskBlockGUI
@@ -27,7 +30,7 @@ class portdeskBlockGUI extends ilBlockGUI {
 		 */
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilPortfolioDesktopPlugin::getInstance();
-//		$this->pl->updateLanguageFiles();
+		//		$this->pl->updateLanguageFiles();
 		$tpl->addCss($this->pl->getDirectory() . '/templates/port_desk.css');
 	}
 
