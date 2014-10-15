@@ -1,9 +1,9 @@
 <?php
 require_once('./Services/Block/classes/class.ilBlockGUI.php');
-require_once('class.ilObjPortfolioListGUI.php');
 require_once('./Modules/Portfolio/classes/class.ilPortfolioAccessHandler.php');
 require_once('./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php');
 require_once('./Services/User/classes/class.ilObjUser.php');
+require_once('./Modules/Portfolio/classes/class.ilObjPortfolio.php');
 
 /**
  * Class portdeskBlockGUI
