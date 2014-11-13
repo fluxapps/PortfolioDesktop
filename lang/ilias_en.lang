@@ -4,3 +4,9 @@ port_actions#:#Actions
 port_edit#:#Edit
 port_preview#:#Preview
 alt_shared#:#Shared
+shared_with_ilias#:#ILIAS
+shared_with_usr#:#User
+shared_with_grp#:#Group
+shared_with_crs#:#Course
+shared_with_www#:#WWW
+shared_with_www_pwd#:#WWW

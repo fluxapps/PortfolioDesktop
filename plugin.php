@@ -1,6 +1,6 @@
 <?php
 $id = 'prt_desk';
-$version = '1.0.1';
+$version = '1.0.2';
 $ilias_min_version = '4.4.0';
 $ilias_max_version = '4.4.999';
 $responsible = 'Fabian Schmid';
