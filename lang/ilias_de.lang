@@ -4,3 +4,9 @@ port_actions#:#Aktionen
 port_edit#:#Bearbeiten
 port_preview#:#Voransicht
 alt_shared#:#Freigegeben
+shared_with_ilias#:#Plattform
+shared_with_usr#:#Benutzer
+shared_with_grp#:#Gruppe
+shared_with_crs#:#Kurs
+shared_with_www#:#WWW
+shared_with_www_pwd#:#WWW

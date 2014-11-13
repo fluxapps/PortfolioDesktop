@@ -30,7 +30,7 @@ class portdeskBlockGUI extends ilBlockGUI {
 		 */
 		$this->ctrl = $ilCtrl;
 		$this->pl = ilPortfolioDesktopPlugin::getInstance();
-		//		$this->pl->updateLanguageFiles();
+		//				$this->pl->updateLanguageFiles();
 		$tpl->addCss($this->pl->getDirectory() . '/templates/port_desk.css');
 	}
 
@@ -51,31 +51,90 @@ class portdeskBlockGUI extends ilBlockGUI {
 	}
 
 
+	/**
+	 * @var ilPortfolioAccessHandler
+	 */
+	protected static $handler;
+
+
+	/**
+	 * @return ilPortfolioAccessHandler
+	 */
+	protected static function getHandler() {
+		if (!isset(self::$handler)) {
+			self::$handler = new ilPortfolioAccessHandler();
+		}
+
+		return self::$handler;
+	}
+
+
+	/**
+	 * @param int $id
+	 *
+	 * @return string
+	 */
+	protected function getSharedTargets($id) {
+		$return = array();
+		$handler = self::getHandler();
+		foreach ($handler->getPermissions($id) as $obj_id) {
+			switch ($obj_id) {
+				case ilWorkspaceAccessGUI::PERMISSION_REGISTERED:
+					$return[] = $this->pl->txt('shared_with_ilias');
+					break;
+
+				case ilWorkspaceAccessGUI::PERMISSION_ALL_PASSWORD:
+					$return[] = $this->pl->txt('shared_with_www_pwd');
+					break;
+
+				case ilWorkspaceAccessGUI::PERMISSION_ALL:
+					$return[] = $this->pl->txt('shared_with_www');
+					break;
+
+				default:
+					$type = ilObject::_lookupType($obj_id);
+					$return[] = $this->pl->txt('shared_with_' . $type);
+
+					break;
+			}
+		}
+
+		return implode(', ', array_unique($return));
+	}
+
+
 	public function fillDataSection() {
 		global $ilUser;
-		$ilPortfolioAccessHandler = new ilPortfolioAccessHandler();
+		//		$ilPortfolioAccessHandler = new ilPortfolioAccessHandler();
 		$tpl = $this->pl->getTemplate('tpl.list_item.html');
 		$prtf_path = array( 'ilPortfolioRepositoryGUI', 'ilobjportfoliogui' );
 		foreach (ilObjPortfolio::getPortfoliosOfUser($ilUser->getId()) as $portfolio) {
 			$this->ctrl->setParameterByClass('ilobjportfoliogui', 'prt_id', $portfolio['id']);
-			$tpl->touchBlock('item');
-			$tpl->setVariable('TITLE', $portfolio['title']);
+
+			$preview_link = $this->ctrl->getLinkTargetByClass($prtf_path, 'preview');
+			$tpl->touchBlock('linked_item');
+			$tpl->setVariable('TITLE_LINK', $portfolio['title']);
+			$tpl->setVariable('ITEM_LINK', $preview_link);
 			if ($portfolio['is_default'] == 1) {
 				$tpl->setVariable('IMG_SRC', ilObjUser::_getPersonalPicturePath($ilUser->getId()));
 			}
 
-			if ($ilPortfolioAccessHandler->hasGlobalPermission($portfolio['id'])
-				OR $ilPortfolioAccessHandler->hasRegisteredPermission($portfolio['id'])
-			) {
-				$tpl->setVariable('IMG_SRC_SHARED', './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/PortfolioDesktop/templates/img/globe_grey_s.png');
-				$tpl->setVariable('TXT_SHARED', $this->pl->txt('alt_shared'));
+			//			if ($ilPortfolioAccessHandler->hasGlobalPermission($portfolio['id'])
+			//				OR $ilPortfolioAccessHandler->hasRegisteredPermission($portfolio['id'])
+			//			) {
+			//				$tpl->setVariable('IMG_SRC_SHARED', './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/PortfolioDesktop/templates/img/globe_grey_s.png');
+			$shared = $this->getSharedTargets($portfolio['id']);
+			if ($shared) {
+				$tpl->setVariable('TXT_SHARED', $this->pl->txt('alt_shared') . ': ' . $shared);
 			}
+			//			}
 
 			$current_selection_list = new ilAdvancedSelectionListGUI();
 			$current_selection_list->setListTitle($this->pl->txt('port_actions'));
 			$current_selection_list->setId('port_id' . $portfolio['id']);
 			$current_selection_list->setUseImages(false);
-			$current_selection_list->addItem($this->pl->txt('port_preview'), 'port_preview', $this->ctrl->getLinkTargetByClass($prtf_path, 'preview'));
+
+			$current_selection_list->addItem($this->pl->txt('port_preview'), 'port_preview', $preview_link);
 			$current_selection_list->addItem($this->pl->txt('port_edit'), 'port_edit', $this->ctrl->getLinkTargetByClass($prtf_path, 'view'));
 
 			$tpl->setVariable('ACTIONS', $current_selection_list->getHTML());
