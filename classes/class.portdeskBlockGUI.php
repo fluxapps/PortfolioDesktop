@@ -110,9 +110,9 @@ class portdeskBlockGUI extends ilBlockGUI {
 		$prtf_path = array( 'ilPortfolioRepositoryGUI', 'ilobjportfoliogui' );
 		foreach (ilObjPortfolio::getPortfoliosOfUser($ilUser->getId()) as $portfolio) {
 			$this->ctrl->setParameterByClass('ilobjportfoliogui', 'prt_id', $portfolio['id']);
-
+			$tpl->setCurrentBlock('item');
 			$preview_link = $this->ctrl->getLinkTargetByClass($prtf_path, 'preview');
-			$tpl->touchBlock('linked_item');
+//			$tpl->touchBlock('linked_item');
 			$tpl->setVariable('TITLE_LINK', $portfolio['title']);
 			$tpl->setVariable('ITEM_LINK', $preview_link);
 			if ($portfolio['is_default'] == 1) {
@@ -138,6 +138,7 @@ class portdeskBlockGUI extends ilBlockGUI {
 			$current_selection_list->addItem($this->pl->txt('port_edit'), 'port_edit', $this->ctrl->getLinkTargetByClass($prtf_path, 'view'));
 
 			$tpl->setVariable('ACTIONS', $current_selection_list->getHTML());
+			$tpl->parseCurrentBlock();
 		}
 
 		$this->setDataSection($tpl->get());
