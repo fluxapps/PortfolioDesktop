@@ -1,29 +1,31 @@
 <div class="port_desk_container">
-<!-- BEGIN item -->
-<div class="ilCLIRow1 port_desk_port_list_item">
-	<!-- BEGIN icon -->
-	<div class="port_desk_port_list_img">
-		<img src="{IMG_SRC}">
+	<!-- BEGIN item -->
+	<div class="ilCLIRow1 port_desk_port_list_item">
+		<div class="port_desk_port_list_first">
+			<!-- BEGIN icon -->
+			<div class="port_desk_port_list_img">
+				<img src="{IMG_SRC}">
+			</div>
+			<!-- END icon -->
+		</div>
+		<div class="port_desk_port_list_sec">
+			<div class="port_desk_port_list_title">
+				<!-- BEGIN linked_item -->
+				<a href="{ITEM_LINK}">{TITLE_LINK}</a>
+				<!-- END linked_item -->        <!-- BEGIN nonlinked_item-->
+				<span>{TITLE}</span>
+				<!-- END nonlinked_item-->
+			</div>
+			<div class="port_desk_port_actions">
+				{ACTIONS}
+			</div>
+			<!-- BEGIN shared -->
+			<div class="port_desk_port_list_shared">
+				<span>{TXT_SHARED}</span>
+			</div>
+			<!-- END shared -->
+		</div>
 	</div>
-	<!-- END icon -->
-	<div class="port_desk_port_list_title">
-		<!-- BEGIN linked_item -->
-		<a href="{ITEM_LINK}">{TITLE_LINK}</a>
-		<!-- END linked_item -->
-		<!-- BEGIN nonlinked_item-->
-		<span>{TITLE}</span>
-		<!-- END nonlinked_item-->
-	</div>
-
-	<div class="port_desk_port_actions">
-		{ACTIONS}
-	</div>
-
-	<!-- BEGIN shared -->
-	<div class="port_desk_port_list_shared">
-		<span>{TXT_SHARED}</span>
-	</div>
-	<!-- END shared -->
-</div>
-<!-- END item -->
+	<!--<div style="clear: both"></div>-->
+	<!-- END item -->
 </div>

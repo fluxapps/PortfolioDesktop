@@ -112,22 +112,18 @@ class portdeskBlockGUI extends ilBlockGUI {
 			$this->ctrl->setParameterByClass('ilobjportfoliogui', 'prt_id', $portfolio['id']);
 			$tpl->setCurrentBlock('item');
 			$preview_link = $this->ctrl->getLinkTargetByClass($prtf_path, 'preview');
-//			$tpl->touchBlock('linked_item');
+
 			$tpl->setVariable('TITLE_LINK', $portfolio['title']);
 			$tpl->setVariable('ITEM_LINK', $preview_link);
 			if ($portfolio['is_default'] == 1) {
 				$tpl->setVariable('IMG_SRC', ilObjUser::_getPersonalPicturePath($ilUser->getId()));
+//				$tpl->setVariable('IMG_SRC', '/Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/PortfolioDesktop/templates/img/no_photo.png');
 			}
 
-			//			if ($ilPortfolioAccessHandler->hasGlobalPermission($portfolio['id'])
-			//				OR $ilPortfolioAccessHandler->hasRegisteredPermission($portfolio['id'])
-			//			) {
-			//				$tpl->setVariable('IMG_SRC_SHARED', './Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/PortfolioDesktop/templates/img/globe_grey_s.png');
 			$shared = $this->getSharedTargets($portfolio['id']);
 			if ($shared) {
 				$tpl->setVariable('TXT_SHARED', $this->pl->txt('alt_shared') . ': ' . $shared);
 			}
-			//			}
 
 			$current_selection_list = new ilAdvancedSelectionListGUI();
 			$current_selection_list->setListTitle($this->pl->txt('port_actions'));
