@@ -49,3 +49,11 @@ div.port_desk_port_list_shared span {
 	margin-top:   7px;
 
 }
+
+div.port_desk_port_list_img img {
+	height:     50px;
+	width:       50px;
+	margin-left: 5px;
+	margin-top: -10px;
+
+}

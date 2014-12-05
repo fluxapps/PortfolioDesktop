@@ -71,7 +71,7 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 
 				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $portdeskObjectsGUI->getHTML() );
 			} else {
-				return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
+//				return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
 			}
 		}
 
