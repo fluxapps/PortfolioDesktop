@@ -120,7 +120,12 @@ class portdeskBlockGUI extends ilBlockGUI {
 		if ($a_set['is_default'] == 1) {
 			$this->tpl->setVariable('SRC_ICON', ilObjUser::_getPersonalPicturePath($ilUser->getId()));
 		} else {
-			$this->tpl->setVariable('SRC_ICON', ilUtil::getImagePath('icon_prtt.png'));
+			if ((int)str_ireplace('.', '', ILIAS_VERSION_NUMERIC) >= 500) {
+
+				$this->tpl->setVariable('SRC_ICON', ilUtil::getImagePath('icon_prtt.svg'));
+			} else {
+				$this->tpl->setVariable('SRC_ICON', ilUtil::getImagePath('icon_prtt.png'));
+			}
 		}
 
 		$this->tpl->setVariable('DIV_CLASS', 'ilContainerListItemOuter');
@@ -146,7 +151,6 @@ class portdeskBlockGUI extends ilBlockGUI {
 		$current_selection_list->addItem($this->pl->txt('port_edit'), 'port_edit', $this->ctrl->getLinkTargetByClass(self::$prtf_path, 'view'));
 
 		$this->tpl->setVariable('COMMAND_SELECTION_LIST', $current_selection_list->getHTML());
-		
 	}
 
 
