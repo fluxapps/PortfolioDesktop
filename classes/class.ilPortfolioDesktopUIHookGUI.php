@@ -5,6 +5,7 @@
 require_once('./Services/UIComponent/classes/class.ilUIHookPluginGUI.php');
 require_once('class.portdeskBlockGUI.php');
 require_once('./Modules/Portfolio/classes/class.ilObjPortfolio.php');
+
 /**
  * Class ilPortfolioDesktopUIHookGUI
  *
@@ -58,11 +59,10 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 		 * @var $tpl          ilTemplate
 		 * @var $ilToolbar    ilToolbarGUI
 		 */
-		global $ilUser, $tpl, $lng;
+		global $ilUser;
 
-		if ($a_comp == 'Services/PersonalDesktop' AND
-			$a_part == 'center_column' AND ! self::isLoaded('pd') AND ($_GET['cmd'] == 'jumpToMemberships' OR $_GET['cmd'] == 'jumpToSelectedItems')
-		) {
+		$cmd_fits = $_GET['cmd'] == 'jumpToMemberships' OR $_GET['cmd'] == 'jumpToSelectedItems' OR $_GET['cmd'] === '';
+		if ($a_comp == 'Services/PersonalDesktop' AND $a_part == 'center_column' AND ! self::isLoaded('pd') AND $cmd_fits) {
 			self::setLoaded('pd');
 
 			if (ilObjPortfolio::getPortfoliosOfUser($ilUser->getId())) {
@@ -70,8 +70,6 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 				$portdeskObjectsGUI->setTitle($this->plugin->txt('block_title'));
 
 				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $portdeskObjectsGUI->getHTML() );
-			} else {
-//				return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
 			}
 		}
 
