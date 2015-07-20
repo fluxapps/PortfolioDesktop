@@ -61,7 +61,7 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 		 */
 		global $ilUser;
 
-		$cmd_fits = $_GET['cmd'] == 'jumpToMemberships' OR $_GET['cmd'] == 'jumpToSelectedItems' OR $_GET['cmd'] === '';
+		$cmd_fits = ($_GET['cmd'] == 'jumpToMemberships' OR $_GET['cmd'] == 'jumpToSelectedItems' OR $_GET['cmd'] === '');
 		if ($a_comp == 'Services/PersonalDesktop' AND $a_part == 'center_column' AND ! self::isLoaded('pd') AND $cmd_fits) {
 			self::setLoaded('pd');
 
