@@ -42,7 +42,6 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 
 	public function __construct() {
 		$this->plugin = ilPortfolioDesktopPlugin::getInstance();
-		//		$this->plugin->updateLanguageFiles();
 	}
 
 
@@ -61,7 +60,26 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 		 */
 		global $ilUser;
 
-		$cmd_fits = ($_GET['cmd'] == 'jumpToMemberships' OR $_GET['cmd'] == 'jumpToSelectedItems' OR $_GET['cmd'] === '');
+		/*
+		1) Aktive Benutzer
+		http://domain.com/ilias.php?cmd=show&cmdClass=ilpersonaldesktopgui&cmdNode=vp&baseClass=ilPersonalDesktopGUI&redirectSource=ilcolumngui&cmdMode=
+		2) Block entfernen
+		http://domain.com/ilias.php?col_side=right&cmdClass=ilcolumngui&cmdNode=vp:m5&baseClass=ilPersonalDesktopGUI
+		3) Block hinzufügen
+		http://domain.com/ilias.php?cmd=show&cmdClass=ilpersonaldesktopgui&cmdNode=vp&baseClass=ilPersonalDesktopGUI&redirectSource=ilcolumngui&cmdMode=
+		4) Ohne Rechte auf Objekt zugreifen
+		http://domain.com/ilias.php?baseClass=ilPersonalDesktopGUI
+		*/
+
+		$commands = array(
+			'',
+			'jumpToMemberships',
+			'jumpToSelectedItems',
+			'show'
+		);
+
+		$cmd_fits = in_array($_GET['cmd'], $commands);
+
 		if ($a_comp == 'Services/PersonalDesktop' AND $a_part == 'center_column' AND ! self::isLoaded('pd') AND $cmd_fits) {
 			self::setLoaded('pd');
 
@@ -69,11 +87,17 @@ class ilPortfolioDesktopUIHookGUI extends ilUIHookPluginGUI {
 				$portdeskObjectsGUI = new portdeskBlockGUI();
 				$portdeskObjectsGUI->setTitle($this->plugin->txt('block_title'));
 
-				return array( 'mode' => ilUIHookPluginGUI::PREPEND, 'html' => $portdeskObjectsGUI->getHTML() );
+				return array(
+					'mode' => ilUIHookPluginGUI::PREPEND,
+					'html' => $portdeskObjectsGUI->getHTML()
+				);
 			}
 		}
 
-		return array( 'mode' => ilUIHookPluginGUI::KEEP, 'html' => '' );
+		return array(
+			'mode' => ilUIHookPluginGUI::KEEP,
+			'html' => ''
+		);
 	}
 }
 
